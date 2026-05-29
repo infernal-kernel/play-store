@@ -20,7 +20,7 @@
             --accent: #ff0055;
             --bg-dark: #05050a;
             --text-high: #ffffff;
-            --text-mid: #e0e0e0; /* Mejor contraste */
+            --text-mid: #e0e0e0; 
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.15);
             --pixel-font: 'Press Start 2P', cursive;
@@ -155,6 +155,7 @@
         <h2 class="section-title">NIVEL 1: PROYECTOS</h2>
         
         <div class="games-grid">
+            <!-- Samuchi ES -->
             <article class="game-card" onmouseenter="playBeep(440)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="samuchi.png" class="game-img">
@@ -169,6 +170,7 @@
                 </div>
             </article>
 
+            <!-- Nivel 33 -->
             <article class="game-card" onmouseenter="playBeep(660)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="nivel33.png" class="game-img">
@@ -183,6 +185,7 @@
                 </div>
             </article>
 
+            <!-- Tetra Block Puzzle -->
             <article class="game-card" onmouseenter="playBeep(520)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="tetris.png" class="game-img">
@@ -190,7 +193,22 @@
                 <div class="game-info">
                     <h3>TETRA BLOCK PUZZLE</h3>
                     <p>Sillar</p>
-                    <a href="#" class="gp-badge">
+                    <a href="https://play.google.com/store/apps/details?id=com.srtech.ttetris" class="gp-badge" target="_blank">
+                        <i class="fab fa-google-play"></i>
+                        <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Snake Game -->
+            <article class="game-card" onmouseenter="playBeep(480)" onclick="playLaser()">
+                <div class="game-img-container">
+                    <img src="snake.png" class="game-img">
+                </div>
+                <div class="game-info">
+                    <h3>SNAKE GAME</h3>
+                    <p>El clásico juego de la serpiente reinventado con controles táctiles modernos y fluidez extrema.</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.srtech.snake" class="gp-badge" target="_blank">
                         <i class="fab fa-google-play"></i>
                         <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
                     </a>
@@ -199,6 +217,7 @@
         </div>
     </div>
 
+    <!-- Data Log -->
     <div class="container" id="stats">
         <h2 class="section-title">NIVEL 33: DATA LOG</h2>
         <div class="game-card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(255,0,85,0.02);">
@@ -213,11 +232,12 @@
             </div>
             <div>
                 <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">ENGINE ARCHITECTURE</h3>
-                <p style="font-size: 0.9rem; color: var(--text-mid);">Desarrollado con <strong>Declarative UI for Game Engines</strong> usando Jetpack Compose. Implementación de FSM para animaciones pixel-perfect a 60 FPS estables en dispositivos móviles.</p>
+                <p style="font-size: 0.9rem; color: var(--text-mid);">Desarrollado con <strong>Declarative UI for Game Engines</strong> usando Jetpack Compose. Implementación de FSM para animaciones pixel-perfect a 60 FPS estables.</p>
             </div>
         </div>
     </div>
 
+    <!-- Inventory -->
     <div class="container" id="skills">
         <h2 class="section-title">INVENTARIO DE SKILLS</h2>
         <div class="inventory-grid">
@@ -287,7 +307,7 @@
             osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         }
 
-        // --- CANVAS ENGINE UPGRADED ---
+        // --- BATTLE CANVAS ENGINE ---
         const canvas = document.getElementById('battleCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -319,7 +339,6 @@
                 this.y = Math.random() * height;
                 this.speed = (Math.random() * 2 + 1) * (this.x < 0 ? 1 : -1);
                 this.color = Math.random() > 0.5 ? '#00f2ff' : '#7000ff';
-                this.width = 30; this.height = 20;
             }
             update() {
                 this.x += this.speed;
@@ -348,7 +367,6 @@
 
         for(let i=0; i<10; i++) ships.push(new Ship());
 
-        // Interacción: Disparar al hacer clic
         window.addEventListener('mousedown', (e) => {
             if (audioCtx.state === 'suspended') return;
             bullets.push(new Bullet(width/2, height, e.clientX, e.clientY));
@@ -357,16 +375,11 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
-            // Fondo de estrellas
             ctx.fillStyle = "#fff";
             for(let i=0; i<15; i++) ctx.fillRect(Math.random()*width, Math.random()*height, 1, 1);
-
             ships.forEach(s => { s.update(); s.draw(); });
-
             bullets.forEach((b, bi) => {
                 b.update(); b.draw();
-                // Colisión con naves
                 ships.forEach(s => {
                     const dist = Math.hypot(b.x - s.x, b.y - s.y);
                     if (dist < 20) {
@@ -375,10 +388,8 @@
                     }
                 });
             });
-
             particles = particles.filter(p => p.life > 0);
             particles.forEach(p => { p.update(); p.draw(); });
-
             bullets = bullets.filter(b => b.x > 0 && b.x < width && b.y > 0);
             requestAnimationFrame(animate);
         }
