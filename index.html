@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- Seguridad Avanzada -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https://via.placeholder.com;">
-    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https://via.placeholder.com https://play.google.com;">
     
-    <title>Samuel Romero | Game Developer</title>
+    <title>Samuel Romero C | Game Dev Portfolio</title>
     
-    <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -20,37 +18,41 @@
             --primary: #00f2ff;
             --secondary: #7000ff;
             --accent: #ff0055;
-            --bg-dark: #0a0a12;
-            --glass: rgba(255, 255, 255, 0.05);
+            --bg-dark: #05050a;
+            --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
             --pixel-font: 'Press Start 2P', cursive;
             --body-font: 'Poppins', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body {
             background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.15) 0%, transparent 40%);
             color: #fff;
             font-family: var(--body-font);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Scanlines Effect */
-        body::before {
-            content: "";
+        /* Canvas Background */
+        #battleCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #101025 0%, #05050a 100%);
+        }
+
+        /* Scanlines Retro */
+        .scanlines {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
-            background-size: 100% 4px, 3px 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
             z-index: 9999;
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 0.3;
         }
 
         header {
@@ -60,7 +62,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            background: rgba(0,0,0,0.2);
         }
 
         .dev-label {
@@ -69,47 +71,31 @@
             color: var(--primary);
             margin-bottom: 1rem;
             text-shadow: 0 0 10px var(--primary);
+            animation: blink 1s infinite;
         }
 
         h1 {
             font-family: var(--pixel-font);
-            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-size: clamp(1.5rem, 6vw, 3.5rem);
             margin-bottom: 1rem;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            letter-spacing: 5px;
-            color: var(--secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+            filter: drop-shadow(0 0 15px rgba(0,242,255,0.3));
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 100px 20px;
         }
 
         .section-title {
             font-family: var(--pixel-font);
             font-size: 1.5rem;
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
             color: var(--primary);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 4px;
-            background: var(--accent);
-            margin: 20px auto;
         }
 
         .games-grid {
@@ -118,182 +104,125 @@
             gap: 40px;
         }
 
-        /* Glassmorphism Card */
+        /* Game Card Glassmorphism */
         .game-card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            border-radius: 28px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .game-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-15px) rotate(1deg);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.15);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
 
         .game-img-container {
-            position: relative;
             height: 220px;
+            position: relative;
             overflow: hidden;
         }
 
-        .game-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
+        .game-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .game-card:hover .game-img { transform: scale(1.1); }
 
-        .game-card:hover .game-img {
-            transform: scale(1.1);
-        }
-
-        .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            background: var(--accent);
-            font-family: var(--pixel-font);
-            font-size: 0.5rem;
-            border-radius: 5px;
-        }
-
-        .game-info {
-            padding: 30px;
-        }
+        .game-info { padding: 30px; }
 
         .game-info h3 {
             font-family: var(--pixel-font);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 15px;
-            color: #fff;
         }
 
-        .game-tags {
+        /* Google Play Badge Custom */
+        .gp-badge {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tag {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            background: rgba(112, 0, 255, 0.2);
-            border-radius: 20px;
-            color: var(--primary);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-        }
-
-        .game-info p {
-            font-size: 0.95rem;
-            color: #b0b0b0;
-            margin-bottom: 25px;
-            height: 80px;
-            overflow: hidden;
-        }
-
-        .btn-play {
-            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #000;
             border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            color: #fff;
+            border-radius: 8px;
+            padding: 8px 15px;
             text-decoration: none;
-            font-weight: 600;
+            color: #fff;
+            margin-top: 20px;
             transition: 0.3s;
-            gap: 12px;
         }
 
-        .btn-play:hover {
-            background: var(--primary);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--primary);
+        .gp-badge:hover {
+            background: #111;
+            border-color: var(--primary);
+            transform: scale(1.02);
         }
+
+        .gp-badge i { font-size: 1.5rem; margin-right: 10px; color: var(--primary); }
+        .gp-text { display: flex; flex-direction: column; line-height: 1; }
+        .gp-text span:first-child { font-size: 0.6rem; text-transform: uppercase; }
+        .gp-text span:last-child { font-size: 1rem; font-weight: 600; }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         footer {
             text-align: center;
-            padding: 80px 20px;
-            border-top: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.3);
-        }
-
-        /* Animations */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            animation: bounce 2s infinite;
+            padding: 100px 20px;
+            font-family: var(--pixel-font);
+            font-size: 0.7rem;
             color: var(--glass-border);
-        }
-
-        @media (max-width: 768px) {
-            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <div class="scanlines"></div>
+    <canvas id="battleCanvas"></canvas>
+
     <header>
-        <div class="dev-label">SYSTEM_STATUS: ONLINE</div>
+        <div class="dev-label">CONNECTING TO THE GRID...</div>
         <h1>SAMUEL ROMERO C.</h1>
-        <p class="hero-subtitle">Senior Game Developer</p>
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down fa-2x"></i>
-        </div>
+        <p style="letter-spacing: 8px; color: var(--secondary); font-weight: 600;">INDIE GAME DEVELOPER</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">Proyectos Destacados</h2>
+        <h2 class="section-title">NIVEL 1: PROYECTOS</h2>
         
         <div class="games-grid">
-            <!-- JUEGO ACTUAL: SAMUCHI ES -->
-            <article class="game-card">
+            <!-- Samuchi ES -->
+            <article class="game-card" onmouseenter="playBeep(440)" onclick="playLaser()">
                 <div class="game-img-container">
-                    <span class="status-badge">NUEVO</span>
-                    <!-- Aquí pondrás la captura de Samuchi ES -->
-                    <img src="https://via.placeholder.com/450x250/0a0a12/00f2ff?text=SAMUCHI+ES+PREVIEW" alt="Samuchi ES" class="game-img">
+                    <img src="https://via.placeholder.com/450x250/05050a/00f2ff?text=SAMUCHI+ES" class="game-img">
                 </div>
                 <div class="game-info">
                     <h3>SAMUCHI ES</h3>
-                    <div class="game-tags">
-                        <span class="tag">Jetpack Compose</span>
-                        <span class="tag">Retro Action</span>
-                    </div>
-                    <p>Increíble aventura de plataformas con físicas personalizadas. Inhala enemigos, usa habilidades especiales y domina el fuego en un mundo pixel-art vibrante.</p>
-                    <a href="#" class="btn-play">
-                        <i class="fab fa-google-play"></i> Próximamente en Play Store
+                    <p>Plataformas retro en Jetpack Compose. Sistema de absorción de enemigos, transformaciones y disparos de fuego.</p>
+                    <a href="#" class="gp-badge">
+                        <i class="fab fa-google-play"></i>
+                        <div class="gp-text">
+                            <span>Get it on</span>
+                            <span>Google Play</span>
+                        </div>
                     </a>
                 </div>
             </article>
 
-            <!-- OTRO JUEGO EJEMPLO -->
-            <article class="game-card">
+            <!-- Otros Juegos -->
+            <article class="game-card" onmouseenter="playBeep(520)" onclick="playLaser()">
                 <div class="game-img-container">
-                    <img src="https://via.placeholder.com/450x250/0a0a12/7000ff?text=LEGACY+PROJECT" alt="Legacy Project" class="game-img">
+                    <img src="https://via.placeholder.com/450x250/05050a/7000ff?text=RETRO+ARCADE" class="game-img">
                 </div>
                 <div class="game-info">
-                    <h3>VOXEL RUNNER</h3>
-                    <div class="game-tags">
-                        <span class="tag">Arcade</span>
-                        <span class="tag">3D</span>
-                    </div>
-                    <p>Un runner infinito con estética voxel y música synthwave. Esquiva obstáculos a la velocidad de la luz y bate récords mundiales.</p>
-                    <a href="#" class="btn-play">
-                        <i class="fab fa-google-play"></i> Ver en Google Play
+                    <h3>PIXEL COMMANDER</h3>
+                    <p>Batallas espaciales infinitas. Mejora tu nave y sobrevive a oleadas de enemigos pixelados.</p>
+                    <a href="#" class="gp-badge">
+                        <i class="fab fa-google-play"></i>
+                        <div class="gp-text">
+                            <span>Get it on</span>
+                            <span>Google Play</span>
+                        </div>
                     </a>
                 </div>
             </article>
@@ -301,30 +230,117 @@
     </div>
 
     <footer>
-        <div style="margin-bottom: 20px;">
-            <a href="#" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
-            <a href="#" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <p>&copy; 2024 Samuel Romero. Desarrollado con pasión por los videojuegos.</p>
-        <p style="margin-top: 15px; font-family: var(--pixel-font); font-size: 0.5rem; color: var(--accent);">[ LEVEL 1-1 ]</p>
+        <p>GAME OVER? NO. JUST RESTARTING.</p>
+        <p style="margin-top: 20px; color: var(--primary);">&copy; 2024 SAMUEL ROMERO</p>
     </footer>
 
     <script>
-        // Animación de entrada para las tarjetas
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
+        // --- SISTEMA DE SONIDO 8-BITS (Web Audio API) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.style.opacity = "0";
-            card.style.transform = "translateY(50px)";
-            card.style.transition = "all 0.8s ease-out";
-            observer.observe(card);
+        function playBeep(freq) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'square'; // Sonido retro cuadrado
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function playLaser() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        }
+
+        // --- SISTEMA DE BATALLA ESPACIAL (Canvas) ---
+        const canvas = document.getElementById('battleCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let ships = [];
+        let bullets = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Ship {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() < 0.5 ? -50 : width + 50;
+                this.y = Math.random() * height;
+                this.speed = (Math.random() * 2 + 1) * (this.x < 0 ? 1 : -1);
+                this.color = Math.random() > 0.5 ? '#00f2ff' : '#7000ff';
+                this.lastShot = 0;
+            }
+            update() {
+                this.x += this.speed;
+                if (Math.random() < 0.01 && Date.now() - this.lastShot > 1000) {
+                    bullets.push(new Bullet(this.x, this.y, this.speed * 2, this.color));
+                    this.lastShot = Date.now();
+                }
+                if (this.x < -100 || this.x > width + 100) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                // Dibujo nave pixelada (triángulo)
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x - (this.speed * 10), this.y - 5);
+                ctx.lineTo(this.x - (this.speed * 10), this.y + 5);
+                ctx.fill();
+            }
+        }
+
+        class Bullet {
+            constructor(x, y, speed, color) {
+                this.x = x; this.y = y; this.speed = speed; this.color = color;
+            }
+            update() { this.x += this.speed; }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, 10, 2);
+            }
+        }
+
+        // Inicializar naves
+        for(let i=0; i<8; i++) ships.push(new Ship());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Estrellas de fondo
+            ctx.fillStyle = "#fff";
+            for(let i=0; i<20; i++) ctx.fillRect(Math.random()*width, Math.random()*height, 1, 1);
+
+            ships.forEach(s => { s.update(); s.draw(); });
+            bullets = bullets.filter(b => b.x > 0 && b.x < width);
+            bullets.forEach(b => { b.update(); b.draw(); });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Desbloquear audio con el primer click
+        document.body.addEventListener('mousedown', () => {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         });
     </script>
 </body>
