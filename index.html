@@ -161,8 +161,8 @@
                     <img src="samuchi.png" class="game-img">
                 </div>
                 <div class="game-info">
-                    <h3>SAMUCHI ES</h3>
-                    <p>Plataformas retro en Jetpack Compose. Sistema de absorción de enemigos, transformaciones y disparos de fuego.</p>
+                    <h3>SAMUCHI LAND ES</h3>
+                    <p>Plataformas retro desarrollado íntegramente en Jetpack Compose. Sistema avanzado de absorción, transformaciones y desbloqueo del nivel secreto "Tierras Prohibidas" mediante el recolectado de 3.000 monedas.</p>
                     <a href="#" class="gp-badge">
                         <i class="fab fa-google-play"></i>
                         <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
@@ -177,7 +177,7 @@
                 </div>
                 <div class="game-info">
                     <h3>NIVEL 33</h3>
-                    <p>El desafío definitivo. 33 niveles hardcore + Nivel Secreto 34 "Tierras Prohibidas". Motor físico custom y estética Pixel-Art.</p>
+                    <p>El desafío definitivo. 33 niveles de dificultad progresiva con motor físico optimizado (Gravity 0.5f) y Coyote Time. Estética pixel-art pura con animaciones fluidas a 60 FPS.</p>
                     <a href="#" class="gp-badge">
                         <i class="fab fa-google-play"></i>
                         <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
@@ -192,7 +192,7 @@
                 </div>
                 <div class="game-info">
                     <h3>TETRA BLOCK PUZZLE</h3>
-                    <p>Un rompecabezas de bloques minimalista con mecánicas de sillar y físicas suaves.</p>
+                    <p>Un rompecabezas táctico de bloques con mecánicas de sillar y físicas de caída suave, optimizado para sesiones de juego rápidas.</p>
                     <a href="https://play.google.com/store/apps/details?id=com.srtech.ttetris" class="gp-badge" target="_blank">
                         <i class="fab fa-google-play"></i>
                         <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
@@ -207,7 +207,7 @@
                 </div>
                 <div class="game-info">
                     <h3>SNAKE GAME</h3>
-                    <p>El clásico juego de la serpiente reinventado con controles táctiles modernos y fluidez extrema.</p>
+                    <p>El clásico reinventado con controles táctiles de alta precisión y un motor de renderizado ultra-fluido.</p>
                     <a href="https://play.google.com/store/apps/details?id=com.srtech.snake" class="gp-badge" target="_blank">
                         <i class="fab fa-google-play"></i>
                         <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
@@ -219,27 +219,26 @@
 
     <!-- Data Log -->
     <div class="container" id="stats">
-        <h2 class="section-title">NIVEL 33: DATA LOG</h2>
-        <div class="game-card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(255,0,85,0.02);">
+        <h2 class="section-title">DATA LOG: MOTOR SAMUCHI ES</h2>
+        <div class="game-card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(0,242,255,0.02);">
             <div>
-                <h3 style="font-family: var(--pixel-font); color: var(--accent); margin-bottom: 20px;">ESPECIFICACIONES</h3>
+                <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">CORE SPECS</h3>
                 <ul class="detail-list">
-                    <li><i class="fas fa-layer-group"></i> 50 Mapas totales (33 Base + 6 Secretos + 11 Premium)</li>
-                    <li><i class="fas fa-bolt"></i> Físicas: Gravedad (0.5f), Salto variable y Coyote Time</li>
-                    <li><i class="fas fa-ghost"></i> Mecánicas de absorción y transformación</li>
-                    <li><i class="fas fa-save"></i> Android DataStore Persistence</li>
-                    <li><i class="fas fa-coins"></i> Reto de 3.000 Monedas: Desbloqueo de Recompensa Final</li>
-                    <li><i class="fas fa-map-marked-alt"></i> Nivel 34: Tierras Prohibidas (Secret Area)</li>
+                    <li><i class="fas fa-layer-group"></i> 50 Niveles Totales (33 Base + 6 Secretos + 11 Premium)</li>
+                    <li><i class="fas fa-bolt"></i> Físicas: Gravedad 0.5f, Coyote Time y Salto Variable</li>
+                    <li><i class="fas fa-ghost"></i> Mecánicas: Absorción, Fuego y Transformación Dinámica</li>
+                    <li><i class="fas fa-save"></i> Persistencia: Android DataStore (Coins, Levels, Settings)</li>
+                    <li><i class="fas fa-coins"></i> Economy: Sistema de recompensa final por 3.000 monedas</li>
                 </ul>
             </div>
             <div>
-                <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">ENGINE ARCHITECTURE</h3>
-                <p style="font-size: 0.9rem; color: var(--text-mid);">Desarrollado con <strong>Declarative UI for Game Engines</strong> usando Jetpack Compose. Implementación de FSM para animaciones pixel-perfect a 60 FPS estables.</p>
+                <h3 style="font-family: var(--pixel-font); color: var(--accent); margin-bottom: 20px;">ENGINE ARCHITECTURE</h3>
+                <p style="font-size: 0.9rem; color: var(--text-mid);">Construido sobre <strong>Jetpack Compose</strong> como motor declarativo. Implementación de State Machine para animaciones pixel-perfect.</p>
                 <ul class="detail-list" style="margin-top: 20px;">
-                    <li><i class="fas fa-tv"></i> Filtro Retro CRT & Vibración Háptica</li>
-                    <li><i class="fas fa-hand-paper"></i> Modo Zurdo y UI Adaptativa Personalizable</li>
-                    <li><i class="fas fa-search-plus"></i> Sistema de Zoom Dinámico (Configurable: 5.8f default)</li>
-                    <li><i class="fas fa-language"></i> Soporte Multi-idioma (Sistema de Locales Dinámico)</li>
+                    <li><i class="fas fa-tv"></i> Retro Filter CRT & Retro Vibration Support</li>
+                    <li><i class="fas fa-hand-paper"></i> Accessibility: Modo Zurdo y UI escalable</li>
+                    <li><i class="fas fa-search-plus"></i> Dynamic Camera: Zoom adaptativo (5.8f configurable)</li>
+                    <li><i class="fas fa-globe"></i> Soporte Multi-idioma nativo (ES, EN, AR)</li>
                 </ul>
             </div>
         </div>
