@@ -19,8 +19,10 @@
             --secondary: #7000ff;
             --accent: #ff0055;
             --bg-dark: #05050a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-high: #ffffff;
+            --text-mid: #e0e0e0; /* Mejor contraste */
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --pixel-font: 'Press Start 2P', cursive;
             --body-font: 'Poppins', sans-serif;
         }
@@ -29,174 +31,130 @@
 
         body {
             background-color: var(--bg-dark);
-            color: #fff;
+            color: var(--text-high);
             font-family: var(--body-font);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
+        /* --- OVERLAY DE INICIO --- */
+        #system-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: 0.5s;
+        }
+        .start-btn {
+            padding: 20px 40px; font-family: var(--pixel-font);
+            background: none; border: 2px solid var(--primary); color: var(--primary);
+            font-size: 1rem; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .start-btn:hover { background: var(--primary); color: #000; }
+
+        /* --- QUEST LOG (NAV) --- */
+        .quest-log {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            display: flex; gap: 15px; font-family: var(--pixel-font); font-size: 0.6rem;
+        }
+        .quest-log a {
+            color: var(--text-high); text-decoration: none; padding: 10px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 5px; transition: 0.3s;
+        }
+        .quest-log a:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+
         /* Canvas Background */
-        #battleCanvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #101025 0%, #05050a 100%);
-        }
+        #battleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at center, #101025 0%, #05050a 100%); }
 
-        /* Scanlines Retro */
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.3;
+            background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.3; }
+
+        /* --- GLITCH EFFECT --- */
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+        }
+        .glitch:hover::before { animation: glitch-anim 0.3s infinite; color: var(--primary); z-index: -1; }
+        .glitch:hover::after { animation: glitch-anim 0.3s infinite reverse; color: var(--accent); z-index: -2; }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
         }
 
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: rgba(0,0,0,0.2);
-        }
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
-        .dev-label {
-            font-family: var(--pixel-font);
-            font-size: 0.7rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px var(--primary);
-            animation: blink 1s infinite;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
 
-        h1 {
-            font-family: var(--pixel-font);
-            font-size: clamp(1.5rem, 6vw, 3.5rem);
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0,242,255,0.3));
-        }
+        .section-title { font-family: var(--pixel-font); font-size: 1.5rem; text-align: center; margin-bottom: 5rem; color: var(--primary); position: relative; }
+        .section-title::after { content: ""; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent); animation: scan-line 2s infinite; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 20px;
-        }
+        @keyframes scan-line { 0% { width: 0; opacity: 0; } 50% { width: 150px; opacity: 1; } 100% { width: 0; opacity: 0; } }
 
-        .section-title {
-            font-family: var(--pixel-font);
-            font-size: 1.5rem;
-            text-align: center;
-            margin-bottom: 5rem;
-            color: var(--primary);
-        }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
+        .game-card { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .game-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
 
-        /* Game Card Glassmorphism */
-        .game-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .game-card:hover {
-            transform: translateY(-15px) rotate(1deg);
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.07);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-        }
-
-        .game-img-container {
-            height: 220px;
-            position: relative;
-            overflow: hidden;
-        }
-
+        .game-img-container { height: 220px; overflow: hidden; }
         .game-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .game-card:hover .game-img { transform: scale(1.1); }
 
         .game-info { padding: 30px; }
+        .game-info h3 { font-family: var(--pixel-font); font-size: 1.2rem; margin-bottom: 15px; }
+        .game-info p { color: var(--text-mid); }
 
-        .game-info h3 {
-            font-family: var(--pixel-font);
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
+        .gp-badge { display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid var(--glass-border); border-radius: 8px; padding: 8px 15px; text-decoration: none; color: #fff; margin-top: 20px; transition: 0.3s; }
+        .gp-badge:hover { border-color: var(--primary); transform: scale(1.05); }
 
-        /* Google Play Badge Custom */
-        .gp-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            padding: 8px 15px;
-            text-decoration: none;
-            color: #fff;
-            margin-top: 20px;
-            transition: 0.3s;
-        }
+        /* --- INVENTARIO RPG --- */
+        .inventory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; margin-top: 30px; }
+        .inv-slot { aspect-ratio: 1; background: rgba(0,0,0,0.5); border: 2px solid var(--glass-border); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.3s; position: relative; overflow: hidden; }
+        .inv-slot:hover { border-color: var(--primary); background: rgba(0, 242, 255, 0.1); }
+        .inv-slot i { font-size: 1.5rem; margin-bottom: 5px; color: var(--text-high); }
+        .inv-slot span { font-family: var(--pixel-font); font-size: 0.4rem; color: var(--primary); text-align: center; }
+        .inv-slot::before { content: "LVL.99"; position: absolute; top: 2px; left: 2px; font-size: 0.3rem; font-family: var(--pixel-font); opacity: 0.5; }
 
-        .gp-badge:hover {
-            background: #111;
-            border-color: var(--primary);
-            transform: scale(1.02);
-        }
-
-        .gp-badge i { font-size: 1.5rem; margin-right: 10px; color: var(--primary); }
-        .gp-text { display: flex; flex-direction: column; line-height: 1; }
-        .gp-text span:first-child { font-size: 0.6rem; text-transform: uppercase; }
-        .gp-text span:last-child { font-size: 1rem; font-weight: 600; }
-
-        /* Detalles Técnicos Nivel 33 */
         .detail-list { list-style: none; margin-top: 20px; }
-        .detail-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.9rem; color: #ccc; }
-        .detail-list i { color: var(--accent); margin-right: 15px; font-size: 1rem; }
+        .detail-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.9rem; color: var(--text-mid); }
+        .detail-list i { color: var(--accent); margin-right: 15px; }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        footer {
-            text-align: center;
-            padding: 100px 20px;
-            font-family: var(--pixel-font);
-            font-size: 0.7rem;
-            color: var(--glass-border);
-        }
+        footer { text-align: center; padding: 100px 20px; font-family: var(--pixel-font); font-size: 0.7rem; color: var(--glass-border); }
     </style>
 </head>
 <body>
+
+    <div id="system-overlay">
+        <div class="dev-label" style="margin-bottom: 2rem;">INITIALIZING NEURAL LINK...</div>
+        <button class="start-btn" onclick="startSystem()">START SYSTEM</button>
+    </div>
+
+    <nav class="quest-log">
+        <a href="#proyectos">QUESTS</a>
+        <a href="#stats">STATS</a>
+        <a href="#skills">INVENTORY</a>
+    </nav>
 
     <div class="scanlines"></div>
     <canvas id="battleCanvas"></canvas>
 
     <header>
-        <div class="dev-label">CONNECTING TO THE GRID...</div>
-        <h1>SAMUEL ROMERO C.</h1>
+        <div class="dev-label">CONNECTION ESTABLISHED</div>
+        <h1 class="glitch" data-text="SAMUEL ROMERO C.">SAMUEL ROMERO C.</h1>
         <p style="letter-spacing: 8px; color: var(--secondary); font-weight: 600;">GAME DEVELOPER</p>
     </header>
 
-    <div class="container">
+    <div class="container" id="proyectos">
         <h2 class="section-title">NIVEL 1: PROYECTOS</h2>
         
         <div class="games-grid">
-            <!-- Samuchi ES -->
             <article class="game-card" onmouseenter="playBeep(440)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="https://via.placeholder.com/450x250/05050a/00f2ff?text=SAMUCHI+ES" class="game-img">
@@ -206,15 +164,11 @@
                     <p>Plataformas retro en Jetpack Compose. Sistema de absorción de enemigos, transformaciones y disparos de fuego.</p>
                     <a href="#" class="gp-badge">
                         <i class="fab fa-google-play"></i>
-                        <div class="gp-text">
-                            <span>Get it on</span>
-                            <span>Google Play</span>
-                        </div>
+                        <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
                     </a>
                 </div>
             </article>
 
-            <!-- Nivel 33 -->
             <article class="game-card" onmouseenter="playBeep(660)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="https://via.placeholder.com/450x250/05050a/ff0055?text=NIVEL+33" class="game-img">
@@ -224,15 +178,11 @@
                     <p>El desafío definitivo. 33 niveles de plataformas hardcore con motor físico personalizado y estética Pixel-Art.</p>
                     <a href="#" class="gp-badge">
                         <i class="fab fa-google-play"></i>
-                        <div class="gp-text">
-                            <span>Get it on</span>
-                            <span>Google Play</span>
-                        </div>
+                        <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
                     </a>
                 </div>
             </article>
 
-            <!-- Otros Juegos -->
             <article class="game-card" onmouseenter="playBeep(520)" onclick="playLaser()">
                 <div class="game-img-container">
                     <img src="https://via.placeholder.com/450x250/05050a/7000ff?text=RETRO+ARCADE" class="game-img">
@@ -242,33 +192,43 @@
                     <p>Batallas espaciales infinitas. Mejora tu nave y sobrevive a oleadas de enemigos pixelados.</p>
                     <a href="#" class="gp-badge">
                         <i class="fab fa-google-play"></i>
-                        <div class="gp-text">
-                            <span>Get it on</span>
-                            <span>Google Play</span>
-                        </div>
+                        <div class="gp-text"><span>Get it on</span><span>Google Play</span></div>
                     </a>
                 </div>
             </article>
         </div>
     </div>
 
-    <!-- Nueva Sección: Nivel 33 Detalles -->
-    <div class="container">
+    <div class="container" id="stats">
         <h2 class="section-title">NIVEL 33: DATA LOG</h2>
         <div class="game-card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(255,0,85,0.02);">
             <div>
                 <h3 style="font-family: var(--pixel-font); color: var(--accent); margin-bottom: 20px;">ESPECIFICACIONES</h3>
                 <ul class="detail-list">
                     <li><i class="fas fa-layer-group"></i> 50 Mapas totales (33 Base + 6 Secretos + 11 Premium)</li>
-                    <li><i class="fas fa-bolt"></i> Sistema de físicas avanzado: Gravedad (0.5f), Salto variable y Coyote Time</li>
-                    <li><i class="fas fa-ghost"></i> Mecánicas de absorción y transformación de estados</li>
-                    <li><i class="fas fa-save"></i> Persistencia de datos mediante Android DataStore</li>
+                    <li><i class="fas fa-bolt"></i> Físicas: Gravedad (0.5f), Salto variable y Coyote Time</li>
+                    <li><i class="fas fa-ghost"></i> Mecánicas de absorción y transformación</li>
+                    <li><i class="fas fa-save"></i> Android DataStore Persistence</li>
                 </ul>
             </div>
             <div>
-                <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">ARCHITECTURE</h3>
-                <p style="font-size: 0.9rem; color: #aaa;">"Nivel 33" representa un hito técnico al ser desarrollado íntegramente en <strong>Jetpack Compose</strong>. Se implementó una máquina de estados compleja (FSM) para manejar animaciones pixel-perfect a 60 FPS, desafiando los límites de los frameworks declarativos modernos en Android.</p>
+                <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">ENGINE ARCHITECTURE</h3>
+                <p style="font-size: 0.9rem; color: var(--text-mid);">Desarrollado con <strong>Declarative UI for Game Engines</strong> usando Jetpack Compose. Implementación de FSM para animaciones pixel-perfect a 60 FPS estables en dispositivos móviles.</p>
             </div>
+        </div>
+    </div>
+
+    <div class="container" id="skills">
+        <h2 class="section-title">INVENTARIO DE SKILLS</h2>
+        <div class="inventory-grid">
+            <div class="inv-slot"><i class="fab fa-kotlin"></i><span>KOTLIN</span></div>
+            <div class="inv-slot"><i class="fas fa-code"></i><span>COMPOSE</span></div>
+            <div class="inv-slot"><i class="fab fa-android"></i><span>ANDROID SDK</span></div>
+            <div class="inv-slot"><i class="fas fa-database"></i><span>SQLITE</span></div>
+            <div class="inv-slot"><i class="fab fa-unity"></i><span>UNITY</span></div>
+            <div class="inv-slot"><i class="fas fa-terminal"></i><span>GIT</span></div>
+            <div class="inv-slot"><i class="fas fa-microchip"></i><span>C#</span></div>
+            <div class="inv-slot"><i class="fas fa-vr-cardboard"></i><span>XR DEV</span></div>
         </div>
     </div>
 
@@ -282,113 +242,147 @@
     </footer>
 
     <script>
-        // --- SISTEMA DE SONIDO 8-BITS (Web Audio API) ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function startSystem() {
+            audioCtx.resume();
+            document.getElementById('system-overlay').style.opacity = '0';
+            setTimeout(() => document.getElementById('system-overlay').style.display = 'none', 500);
+            playLaser();
+        }
 
         function playBeep(freq) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx.state === 'suspended') return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.type = 'square'; // Sonido retro cuadrado
+            osc.type = 'square';
             osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
             gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
         }
 
         function playLaser() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx.state === 'suspended') return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.frequency.setValueAtTime(880, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.2);
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.2);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.2);
         }
 
-        // --- SISTEMA DE BATALLA ESPACIAL (Canvas) ---
+        function playExplosion() {
+            if (audioCtx.state === 'suspended') return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // --- CANVAS ENGINE UPGRADED ---
         const canvas = document.getElementById('battleCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-        let ships = [];
-        let bullets = [];
+        let ships = [], bullets = [], particles = [];
 
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.vx = (Math.random() - 0.5) * 10;
+                this.vy = (Math.random() - 0.5) * 10;
+                this.life = 1.0;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.life -= 0.05; }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.fillRect(this.x, this.y, 3, 3);
+                ctx.globalAlpha = 1;
+            }
         }
-        window.addEventListener('resize', resize);
-        resize();
 
         class Ship {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() < 0.5 ? -50 : width + 50;
                 this.y = Math.random() * height;
                 this.speed = (Math.random() * 2 + 1) * (this.x < 0 ? 1 : -1);
                 this.color = Math.random() > 0.5 ? '#00f2ff' : '#7000ff';
-                this.lastShot = 0;
+                this.width = 30; this.height = 20;
             }
             update() {
                 this.x += this.speed;
-                if (Math.random() < 0.01 && Date.now() - this.lastShot > 1000) {
-                    bullets.push(new Bullet(this.x, this.y, this.speed * 2, this.color));
-                    this.lastShot = Date.now();
-                }
                 if (this.x < -100 || this.x > width + 100) this.reset();
             }
             draw() {
                 ctx.fillStyle = this.color;
-                // Dibujo nave pixelada (triángulo)
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - (this.speed * 10), this.y - 5);
-                ctx.lineTo(this.x - (this.speed * 10), this.y + 5);
+                ctx.lineTo(this.x - (this.speed * 10), this.y - 10);
+                ctx.lineTo(this.x - (this.speed * 10), this.y + 10);
                 ctx.fill();
             }
         }
 
         class Bullet {
-            constructor(x, y, speed, color) {
-                this.x = x; this.y = y; this.speed = speed; this.color = color;
+            constructor(x, y, tx, ty) {
+                this.x = x; this.y = y;
+                const angle = Math.atan2(ty - y, tx - x);
+                this.vx = Math.cos(angle) * 15;
+                this.vy = Math.sin(angle) * 15;
             }
-            update() { this.x += this.speed; }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, 10, 2);
-            }
+            update() { this.x += this.vx; this.y += this.vy; }
+            draw() { ctx.fillStyle = '#fff'; ctx.fillRect(this.x, this.y, 4, 4); }
         }
 
-        // Inicializar naves
-        for(let i=0; i<8; i++) ships.push(new Ship());
+        for(let i=0; i<10; i++) ships.push(new Ship());
+
+        // Interacción: Disparar al hacer clic
+        window.addEventListener('mousedown', (e) => {
+            if (audioCtx.state === 'suspended') return;
+            bullets.push(new Bullet(width/2, height, e.clientX, e.clientY));
+            playLaser();
+        });
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
             
-            // Estrellas de fondo
+            // Fondo de estrellas
             ctx.fillStyle = "#fff";
-            for(let i=0; i<20; i++) ctx.fillRect(Math.random()*width, Math.random()*height, 1, 1);
+            for(let i=0; i<15; i++) ctx.fillRect(Math.random()*width, Math.random()*height, 1, 1);
 
             ships.forEach(s => { s.update(); s.draw(); });
-            bullets = bullets.filter(b => b.x > 0 && b.x < width);
-            bullets.forEach(b => { b.update(); b.draw(); });
 
+            bullets.forEach((b, bi) => {
+                b.update(); b.draw();
+                // Colisión con naves
+                ships.forEach(s => {
+                    const dist = Math.hypot(b.x - s.x, b.y - s.y);
+                    if (dist < 20) {
+                        for(let i=0; i<10; i++) particles.push(new Particle(s.x, s.y, s.color));
+                        s.reset(); bullets.splice(bi, 1); playExplosion();
+                    }
+                });
+            });
+
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => { p.update(); p.draw(); });
+
+            bullets = bullets.filter(b => b.x > 0 && b.x < width && b.y > 0);
             requestAnimationFrame(animate);
         }
         animate();
-
-        // Desbloquear audio con el primer click
-        document.body.addEventListener('mousedown', () => {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        });
     </script>
 </body>
 </html>
