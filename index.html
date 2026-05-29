@@ -134,6 +134,7 @@
             border-radius: 15px;
             position: relative;
             overflow: hidden;
+            margin-bottom: 40px;
         }
         .briefing-box::before {
             content: "TOP SECRET";
@@ -239,10 +240,13 @@
         </div>
     </div>
 
-    <!-- NUEVA SECCIÓN: MISSION BRIEFING -->
+    <!-- SECCIÓN: MISSION BRIEFING -->
     <div class="container" id="briefing">
-        <h2 class="section-title">MISSION BRIEFING: SAMUCHI LAND ES</h2>
+        <h2 class="section-title">MISSION BRIEFING: PROJECTS</h2>
+        
+        <!-- Briefing Samuchi Land -->
         <div class="briefing-box">
+            <h3 style="font-family: var(--pixel-font); color: var(--primary); font-size: 1rem; margin-bottom: 20px;">> SAMUCHI LAND ES</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
                 <div>
                     <h4 style="font-family: var(--pixel-font); color: var(--primary); font-size: 0.8rem; margin-bottom: 15px;">[ MECÁNICAS DE JUEGO ]</h4>
@@ -250,16 +254,41 @@
                         <li><i class="fas fa-running"></i> Movimiento: Inercia suave y Salto Variable.</li>
                         <li><i class="fas fa-clock"></i> Coyote Time: Margen de error en saltos al borde.</li>
                         <li><i class="fas fa-fire"></i> Transformación: Sistema de Absorción y disparo de Fuego.</li>
-                        <li><i class="fas fa-trophy"></i> Meta Global: 3.000 monedas para desbloquear el Nivel 34 "Tierras Prohibidas".</li>
+                        <li><i class="fas fa-trophy"></i> Meta Global: 3.000 monedas para desbloquear el Nivel 34.</li>
                     </ul>
                 </div>
                 <div>
                     <h4 style="font-family: var(--pixel-font); color: var(--accent); font-size: 0.8rem; margin-bottom: 15px;">[ ESPECIFICACIONES TÉCNICAS ]</h4>
                     <ul class="detail-list">
                         <li><i class="fas fa-microchip"></i> Motor: Jetpack Compose Nativo (Declarative UI).</li>
-                        <li><i class="fas fa-database"></i> Persistencia: Android DataStore para progreso y settings.</li>
+                        <li><i class="fas fa-database"></i> Persistencia: Android DataStore para progreso.</li>
                         <li><i class="fas fa-globe"></i> Soporte: Multi-idioma (ES, EN, AR, PT, DE).</li>
-                        <li><i class="fas fa-adjust"></i> Gráficos: Filtro CRT Retro y Zoom dinámico ajustable (5.8f).</li>
+                        <li><i class="fas fa-adjust"></i> Gráficos: Filtro CRT Retro y Zoom ajustable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA SECCIÓN: Briefing Nivel 33 -->
+        <div class="briefing-box" style="border-color: var(--secondary);">
+            <h3 style="font-family: var(--pixel-font); color: var(--secondary); font-size: 1rem; margin-bottom: 20px;">> NIVEL 33: THE ULTIMATE CHALLENGE</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <div>
+                    <h4 style="font-family: var(--pixel-font); color: var(--primary); font-size: 0.8rem; margin-bottom: 15px;">[ CORE GAMEPLAY ]</h4>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-layer-group"></i> Estructura: 33 Niveles de dificultad exponencial.</li>
+                        <li><i class="fas fa-mountain"></i> Motor Físico: Gravedad 0.5f (Salto de precisión).</li>
+                        <li><i class="fas fa-stopwatch"></i> Mecánica: Coyote Time optimizado para pantallas táctiles.</li>
+                        <li><i class="fas fa-skull"></i> Dificultad: Diseño de niveles "Hardcore" balanceado.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-family: var(--pixel-font); color: var(--accent); font-size: 0.8rem; margin-bottom: 15px;">[ ARCHITECTURE LOG ]</h4>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-code"></i> Framework: UI 100% Declarativa (Compose).</li>
+                        <li><i class="fas fa-robot"></i> Android Target: Compilado para SDK 35 (Android 15).</li>
+                        <li><i class="fas fa-save"></i> Data: Gestión de niveles vía DataStore Preferences.</li>
+                        <li><i class="fas fa-shield-alt"></i> Seguridad: ProGuard Rules para optimización de código.</li>
                     </ul>
                 </div>
             </div>
