@@ -165,6 +165,11 @@
         .gp-text span:first-child { font-size: 0.6rem; text-transform: uppercase; }
         .gp-text span:last-child { font-size: 1rem; font-weight: 600; }
 
+        /* Detalles Técnicos Nivel 33 */
+        .detail-list { list-style: none; margin-top: 20px; }
+        .detail-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.9rem; color: #ccc; }
+        .detail-list i { color: var(--accent); margin-right: 15px; font-size: 1rem; }
+
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         footer {
@@ -209,6 +214,24 @@
                 </div>
             </article>
 
+            <!-- Nivel 33 -->
+            <article class="game-card" onmouseenter="playBeep(660)" onclick="playLaser()">
+                <div class="game-img-container">
+                    <img src="https://via.placeholder.com/450x250/05050a/ff0055?text=NIVEL+33" class="game-img">
+                </div>
+                <div class="game-info">
+                    <h3>NIVEL 33</h3>
+                    <p>El desafío definitivo. 33 niveles de plataformas hardcore con motor físico personalizado y estética Pixel-Art.</p>
+                    <a href="#" class="gp-badge">
+                        <i class="fab fa-google-play"></i>
+                        <div class="gp-text">
+                            <span>Get it on</span>
+                            <span>Google Play</span>
+                        </div>
+                    </a>
+                </div>
+            </article>
+
             <!-- Otros Juegos -->
             <article class="game-card" onmouseenter="playBeep(520)" onclick="playLaser()">
                 <div class="game-img-container">
@@ -229,12 +252,33 @@
         </div>
     </div>
 
+    <!-- Nueva Sección: Nivel 33 Detalles -->
+    <div class="container">
+        <h2 class="section-title">NIVEL 33: DATA LOG</h2>
+        <div class="game-card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(255,0,85,0.02);">
+            <div>
+                <h3 style="font-family: var(--pixel-font); color: var(--accent); margin-bottom: 20px;">ESPECIFICACIONES</h3>
+                <ul class="detail-list">
+                    <li><i class="fas fa-layer-group"></i> 50 Mapas totales (33 Base + 6 Secretos + 11 Premium)</li>
+                    <li><i class="fas fa-bolt"></i> Sistema de físicas avanzado: Gravedad (0.5f), Salto variable y Coyote Time</li>
+                    <li><i class="fas fa-ghost"></i> Mecánicas de absorción y transformación de estados</li>
+                    <li><i class="fas fa-save"></i> Persistencia de datos mediante Android DataStore</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="font-family: var(--pixel-font); color: var(--primary); margin-bottom: 20px;">ARCHITECTURE</h3>
+                <p style="font-size: 0.9rem; color: #aaa;">"Nivel 33" representa un hito técnico al ser desarrollado íntegramente en <strong>Jetpack Compose</strong>. Se implementó una máquina de estados compleja (FSM) para manejar animaciones pixel-perfect a 60 FPS, desafiando los límites de los frameworks declarativos modernos en Android.</p>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>GAME OVER? NO. JUST RESTARTING.</p>
         <p style="margin-top: 20px; color: var(--primary);">&copy; 2026-2027 SAMUEL ROMERO C</p>
-        <a href="https://github.com/infernal-kernel" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
-    <a href="www.linkedin.com/in/samuel-romero-dev-466b95334" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
-</div>
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/infernal-kernel" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/samuel-romero-dev-466b95334" style="color: #fff; margin: 0 15px; font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+        </div>
     </footer>
 
     <script>
